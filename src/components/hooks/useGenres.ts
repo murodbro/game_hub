@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
-import apiClient from "../api-client";
-import useData from "./useData";
+import apiClient, { FetchResponse } from "../api-client";
+import { useQuery } from "react-query";
 
 export interface Genres {
   id: number;
   name: string;
-  image_background: string
+  image_background: string;
 }
 
-const useGenres = () => useData<Genres>("/genres");
+const useGenres = () =>
+  useQuery({
+    queryKey: ["genres"],
+    queryFn: () =>
+      apiClient.get<FetchResponse<Genres>>("/genres").then((res) => res.data),
+    staleTime: 24 * 60 * 60 * 1000,
+  });
 
 export default useGenres;
