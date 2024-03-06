@@ -6,17 +6,17 @@ interface Props {
   sortOrder: string;
 }
 
-const SortSelect = ({ onSelectSortOrder, sortOrder }: Props) => {
-  const sortOrdering = [
+const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+  const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
     { value: "name", label: "Name" },
-    { value: "-date", label: "Release date" },
+    { value: "-released", label: "Release date" },
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average rating" },
   ];
 
-  const currentSortOrder = sortOrdering.find(
+  const currentSortOrder = sortOrders.find(
     (order) => order.value === sortOrder
   );
 
@@ -26,7 +26,7 @@ const SortSelect = ({ onSelectSortOrder, sortOrder }: Props) => {
         Order by: {currentSortOrder?.label || "Relevance"}
       </MenuButton>
       <MenuList>
-        {sortOrdering.map((order) => (
+        {sortOrders.map((order) => (
           <MenuItem
             onClick={() => onSelectSortOrder(order.value)}
             key={order.value}
@@ -40,4 +40,4 @@ const SortSelect = ({ onSelectSortOrder, sortOrder }: Props) => {
   );
 };
 
-export default SortSelect;
+export default SortSelector;
